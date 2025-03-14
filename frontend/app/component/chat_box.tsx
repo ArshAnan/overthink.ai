@@ -34,14 +34,34 @@ export default function ChatBox()
     const addAIResponse = (message:string)=>{
         addMessage(message,'Bot');
     }
-    const handleInput = () =>{
+    const handleInput = async () =>{
         addMessage(inputValue,'User');
         setInputValue("");
         setIsThinking(true);
-        setTimeout(() => {
-            addAIResponse("I'm a bot");
+        // setTimeout(() => {
+        //     addAIResponse("I'm a bot");
+        //     setIsThinking(false);
+        //   }, 2000); // 10000 ms = 10 seconds
+
+        try{
+            const response =  await fetch("http://localhost:8000/analyze",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+
+                },
+                body:JSON.stringify({thought:inputValue}),
+            });
+            const data = await response.json();
+            const message = data.classification
+            console.log(data);
+            addAIResponse(message);
+        }
+        catch (error) {
+            console.error("Error fetching AI response:", error);
+          } finally {
             setIsThinking(false);
-          }, 2000); // 10000 ms = 10 seconds
+          }
         
         
     }

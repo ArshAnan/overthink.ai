@@ -6,4 +6,4 @@ router = APIRouter()  # Create APIRouter instance
 
 @router.post("/analyze")  # Define POST endpoint at /analyze URL
 async def analyze_thought(prompt: ThoughtPrompt):
-    return classify_thought(prompt.text)  # Return classification result
+    return classify_thought(prompt.thought)  # Return classification result
