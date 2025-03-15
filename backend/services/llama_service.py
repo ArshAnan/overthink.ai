@@ -3,7 +3,7 @@ import torch
 import bitsandbytes
 
 llama_pipe = pipeline("text-generation", model="microsoft/phi-2", device = 0 if torch.cuda.is_available() else -1, torch_dtype=torch.float16) # Quantization)
-
+llama_pipe.model.half()
 def classify_thought(user_thought: str):
     prompt = f"""
 You are an intelligent assistant. Your job is to both chat naturally and identify overthinking.
