@@ -50,7 +50,7 @@ export default function ChatBox()
                 body:JSON.stringify({thought:inputValue}),
             });
             const data = await response.json();
-            const message = data.classification
+            const message = data.response
             console.log(data);
             addAIResponse(message);
         }
